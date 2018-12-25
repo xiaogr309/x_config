@@ -87,7 +87,6 @@ spring:
     platform: mysql
     type: com.alibaba.druid.pool.DruidDataSource
 
-spring:
   db:
     test_db:
       druid:
