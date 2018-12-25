@@ -77,6 +77,17 @@ spring:
         result-set-open-after-log-enabled: false
         result-set-close-after-log-enabled: false
 
+  datasource1:
+    druid:
+       connection-init-sqls: set names utf8mb4;
+    url: jdbc:mysql://localhost:3306/test_db?useUnicode=true&useSSL=false&autoReconnect=true
+    username: alipay
+    password: alipay
+    driver-class-name: com.mysql.jdbc.Driver
+    platform: mysql
+    type: com.alibaba.druid.pool.DruidDataSource
+
+spring:
   db:
     test_db:
       druid:
@@ -87,16 +98,38 @@ spring:
       driver-class-name: com.mysql.jdbc.Driver
       platform: mysql
       type: com.alibaba.druid.pool.DruidDataSource
-  db1:
-      test:
-        druid:
-              connection-init-sqls: set names utf8mb4;
-        url: jdbc:mysql://localhost:3306/test?useUnicode=true&useSSL=false&autoReconnect=true
-        username: alipay
-        password: alipay
-        driver-class-name: com.mysql.jdbc.Driver
-        platform: mysql
-        type: com.alibaba.druid.pool.DruidDataSource
+      # 初始化大小，最小，最大
+      initialSize: 1
+      minIdle: 10
+      maxActive: 200
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 30000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      # Druid WebStatFilter配置
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: '*.gif,*.png,*.jpg,*.html,*.js,*.css,*.ico,/druid/*'
+      # Druid StatViewServlet配置
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: true
+        login-username: admin
+        login-password: admin
+
 
 feign:
   hystrix:
