@@ -77,7 +77,7 @@ spring:
         result-set-open-after-log-enabled: false
         result-set-close-after-log-enabled: false
 
-  datasource1:
+  dbsource:
     druid:
        connection-init-sqls: set names utf8mb4;
     url: jdbc:mysql://localhost:3306/test_db?useUnicode=true&useSSL=false&autoReconnect=true
