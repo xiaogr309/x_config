@@ -97,6 +97,9 @@ spring:
     platform: mysql
     type: com.alibaba.druid.pool.DruidDataSource
 
+  test:
+     test:
+
   db:
     test_db:
       druid:
